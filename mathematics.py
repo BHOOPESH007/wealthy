@@ -10,15 +10,34 @@ def get_mean_SD(value):
     standard_deviation = (distance/n)**0.5
     return mean_value, standard_deviation
 
-def get_statics_data(stock_holder_details, value):
+def get_statics_data(value, StockDates_within_dates):
     if is_empty(value):
         return 0,0,0
-    min_stock_price_index = stock_holder_details['StockPrice'].index(min(value))
-    max_stock_price_index = stock_holder_details['StockPrice'].index(max(value))
-    profit =STOCK_UNIT*(stock_holder_details['StockPrice'][max_stock_price_index] - stock_holder_details['StockPrice'][min_stock_price_index])
-    return stock_holder_details['StockDate'][min_stock_price_index], stock_holder_details['StockDate'][max_stock_price_index], profit
+    min_stock_price_index, max_stock_price_index, profit_per_unit =get_max_profit(value, len(value))
+    if min_stock_price_index is None:
+        return 0,0,0
+    profit =STOCK_UNIT*profit_per_unit
+    return StockDates_within_dates[min_stock_price_index], StockDates_within_dates[max_stock_price_index], profit
 
 def is_empty(value):
     if not value:
         return True
     return False
+
+def get_max_profit(arr, n): 
+    max_profit = -1000
+    maxRight = arr[n - 1]  
+    maxRight_index = n-1
+    left_index= None
+    right_index = None
+    for i in range(n - 2, -1, -1): 
+        if (arr[i] > maxRight): 
+            maxRight = arr[i] 
+            maxRight_index = i
+        else: 
+            diff = maxRight - arr[i] 
+            if (diff > max_profit):
+                left_index= i
+                right_index = maxRight_index
+                max_profit = diff 
+    return left_index, right_index, max_profit 

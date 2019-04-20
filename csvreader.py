@@ -17,6 +17,8 @@ class CSVReader:
         
         for index, cell_data in enumerate(row_data[1:]):
             if columns_name[index+1] =='StockDate':
+                if not cell_data:
+                    cell_data = self.stock_dict[stock_holder_name][columns_name[index+1]][-1]
                 cell_data = convert_datatime_object(cell_data)
             
             elif columns_name[index+1] =='StockPrice':
