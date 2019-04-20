@@ -19,9 +19,12 @@ class CSVReader:
             if columns_name[index+1] =='StockDate':
                 if not cell_data:
                     cell_data = self.stock_dict[stock_holder_name][columns_name[index+1]][-1]
-                cell_data = convert_datatime_object(cell_data)
+                else:
+                    cell_data = convert_datatime_object(cell_data)
             
             elif columns_name[index+1] =='StockPrice':
+                if not cell_data:
+                    cell_data = self.stock_dict[stock_holder_name][columns_name[index+1]][-1]
                 cell_data=float(cell_data)
             self.stock_dict[stock_holder_name][columns_name[index+1]].append(cell_data)
         self.stock_dict[stock_holder_name]['count']+=1

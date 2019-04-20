@@ -48,7 +48,7 @@ def start_process(stock_dict):
             print 'Oops!, No record Found'
         else:
             mean_value, standard_deviation = get_mean_SD(StockPrice_within_dates)
-            buy_date, sell_date, profit = get_statics_data(stock_holder_details, StockPrice_within_dates, StockDates_within_dates)
+            buy_date, sell_date, profit = get_statics_data(StockPrice_within_dates, StockDates_within_dates)
 
             print '"Here is you result":- \nMean: ',mean_value, '\nStd: ',standard_deviation, '\nBuy date: ',buy_date, '\nSell date: ',sell_date, '\nProfit: Rs. ',profit
 
